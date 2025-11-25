@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Cyberbullying Detector",
+  "version": "1.0.0",
+  "description": "Détecte automatiquement le cyberharcèlement dans les commentaires YouTube avec IA",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

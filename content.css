@@ -1,0 +1,259 @@
+/* Content Script Styles for YouTube Integration */
+
+/* Badge Animations */
+@keyframes fadeInBadge {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseWarning {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 101, 101, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(245, 101, 101, 0);
+  }
+}
+
+/* Comment Highlight Styles */
+ytd-comment-renderer.cyberbully-highlighted {
+  transition: all 0.3s ease !important;
+}
+
+ytd-comment-renderer.cyberbully-highlighted.harassment {
+  background: linear-gradient(
+    to right,
+    rgba(245, 101, 101, 0.1),
+    transparent
+  ) !important;
+  border-left: 4px solid #f56565 !important;
+  padding-left: 8px !important;
+}
+
+ytd-comment-renderer.cyberbully-highlighted.safe {
+  background: linear-gradient(
+    to right,
+    rgba(72, 187, 120, 0.05),
+    transparent
+  ) !important;
+  border-left: 4px solid #48bb78 !important;
+  padding-left: 8px !important;
+}
+
+/* Badge Base Styles */
+.cyberbully-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 4px 10px !important;
+  margin-left: 8px !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  animation: fadeInBadge 0.3s ease !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+  cursor: help !important;
+  z-index: 10 !important;
+}
+
+.cyberbully-badge.harassment {
+  background: rgba(245, 101, 101, 0.15) !important;
+  color: #c53030 !important;
+  border: 1px solid rgba(245, 101, 101, 0.3) !important;
+}
+
+.cyberbully-badge.safe {
+  background: rgba(72, 187, 120, 0.15) !important;
+  color: #2f855a !important;
+  border: 1px solid rgba(72, 187, 120, 0.3) !important;
+}
+
+.cyberbully-badge.harassment:hover {
+  background: rgba(245, 101, 101, 0.25) !important;
+  animation: pulseWarning 2s infinite !important;
+}
+
+.cyberbully-badge.safe:hover {
+  background: rgba(72, 187, 120, 0.25) !important;
+}
+
+/* Confidence Indicator */
+.cyberbully-confidence {
+  display: inline-block !important;
+  width: 40px !important;
+  height: 4px !important;
+  background: rgba(0, 0, 0, 0.1) !important;
+  border-radius: 2px !important;
+  overflow: hidden !important;
+  margin-left: 6px !important;
+  vertical-align: middle !important;
+}
+
+.cyberbully-confidence-fill {
+  height: 100% !important;
+  border-radius: 2px !important;
+  transition: width 0.5s ease !important;
+}
+
+.cyberbully-confidence-fill.harassment {
+  background: linear-gradient(90deg, #f56565, #c53030) !important;
+}
+
+.cyberbully-confidence-fill.safe {
+  background: linear-gradient(90deg, #48bb78, #2f855a) !important;
+}
+
+/* Loading Indicator */
+.cyberbully-loading {
+  display: inline-block !important;
+  width: 14px !important;
+  height: 14px !important;
+  border: 2px solid rgba(102, 126, 234, 0.3) !important;
+  border-top-color: #667eea !important;
+  border-radius: 50% !important;
+  animation: spin 0.6s linear infinite !important;
+  margin-left: 8px !important;
+  vertical-align: middle !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tooltip */
+.cyberbully-badge[title] {
+  position: relative !important;
+}
+
+.cyberbully-badge[title]:hover::after {
+  content: attr(title) !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-top: 6px !important;
+  padding: 6px 10px !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  color: white !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+  white-space: nowrap !important;
+  z-index: 1000 !important;
+  pointer-events: none !important;
+}
+
+/* Stats Overlay (Optional Feature) */
+.cyberbully-stats-overlay {
+  position: fixed !important;
+  top: 80px !important;
+  right: 20px !important;
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 9999 !important;
+  min-width: 200px !important;
+  animation: slideInRight 0.3s ease !important;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cyberbully-stats-overlay h3 {
+  margin: 0 0 12px 0 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #2d3748 !important;
+}
+
+.cyberbully-stats-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 6px 0 !important;
+  font-size: 13px !important;
+}
+
+.cyberbully-stats-label {
+  color: #718096 !important;
+}
+
+.cyberbully-stats-value {
+  font-weight: 600 !important;
+  color: #2d3748 !important;
+}
+
+.cyberbully-stats-value.danger {
+  color: #f56565 !important;
+}
+
+.cyberbully-stats-value.success {
+  color: #48bb78 !important;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .cyberbully-badge.harassment {
+    background: rgba(245, 101, 101, 0.2) !important;
+    color: #fc8181 !important;
+  }
+  
+  .cyberbully-badge.safe {
+    background: rgba(72, 187, 120, 0.2) !important;
+    color: #68d391 !important;
+  }
+  
+  .cyberbully-stats-overlay {
+    background: #2d3748 !important;
+    border-color: #4a5568 !important;
+  }
+  
+  .cyberbully-stats-overlay h3,
+  .cyberbully-stats-value {
+    color: #f7fafc !important;
+  }
+  
+  .cyberbully-stats-label {
+    color: #cbd5e0 !important;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1280px) {
+  .cyberbully-badge {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+  }
+}
+
+/* Accessibility */
+.cyberbully-badge:focus {
+  outline: 2px solid #667eea !important;
+  outline-offset: 2px !important;
+}
+
+/* Print Styles */
+@media print {
+  .cyberbully-badge,
+  .cyberbully-stats-overlay {
+    display: none !important;
+  }
+}
