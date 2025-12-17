@@ -4,9 +4,13 @@ scikit-learn
 pandas
 numpy
 joblib
-python-dotenv
 requests
+python-multipart
+jinja2
+python-dotenv
+
+# Testing
 pytest
-black
-flake8
-tqdm
+pytest-json-report
+matplotlib
+seaborn

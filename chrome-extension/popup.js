@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = 'http://172.20.10.4:7860';
 let currentFilter = 'all';
 let analysisData = null;
 let sentimentChart = null;
@@ -170,7 +170,7 @@ async function analyzeComments(comments) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 30000);
   
-  const res = await fetch(`${API_URL}/predict_batch`, {
+  const res = await fetch(`${API_URL}/predict`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ comments }),

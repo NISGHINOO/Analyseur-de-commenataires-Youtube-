@@ -1,25 +1,16 @@
-# ==========================
-# Dockerfile pour API FastAPI
-# ==========================
-
-# Image de base légère
 FROM python:3.10-slim
-
-# Définir le répertoire de travail
+ENV PORT=7860
+EXPOSE 7860
 WORKDIR /app
 
-# Copier uniquement requirements.txt pour optimiser le cache
-COPY requirements.txt .
+# Copier fichiers nécessaires
+COPY app_api.py /app/
+COPY models/ /app/models/
+COPY src/ /app/src/
+COPY requirements-prod.txt /app/
 
-# Installer les dépendances
-RUN pip install --no-cache-dir -r requirements.txt
+# Installer dépendances
+RUN pip install --no-cache-dir -r requirements-prod.txt
 
-# Copier les dossiers nécessaires
-COPY src/ ./src/
-COPY models/ ./models/
-
-# Exposer le port standard Hugging Face
-EXPOSE 7860
-
-# Lancer l'API
-CMD ["uvicorn", "src.api.app_api:app", "--host", "0.0.0.0", "--port", "7860"]
+# Lancer l’API
+CMD ["uvicorn", "app_api:app", "--host", "0.0.0.0", "--port", "7860"]

@@ -35,6 +35,18 @@ def predict(batch: CommentBatch):
                 "confidence": float(probabilities[i][1]) if predictions[i] else float(probabilities[i][0])
             })
 
-        return PredictionResponse(predictions=results)
+        # Statistiques exactes demandées par PredictionResponse
+        total = len(predictions)
+        harassment_detected = int(sum(predictions))
+        harassment_percentage = (harassment_detected / total) * 100 if total > 0 else 0
+
+        stats = {
+            "total_comments": total,
+            "harassment_detected": harassment_detected,
+            "harassment_percentage": harassment_percentage
+        }
+
+        return PredictionResponse(predictions=results, statistics=stats)
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
